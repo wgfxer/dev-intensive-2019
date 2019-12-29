@@ -4,6 +4,7 @@ import ru.skillbranch.devintensive.utils.Utils
 import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 const val SECOND = 1000L
 const val MINUTE = 60 * SECOND
@@ -43,6 +44,18 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         diff in 26 * HOUR until 360 * DAY -> result =
             "${TimeUnits.DAY.plural((diff / DAY).toInt())} назад"
         diff > 360 * DAY -> result = "более года назад"
+
+        diff in -45 * SECOND until 0 -> result = "через несколько секунд"
+        diff in -75 * SECOND until -45 * SECOND -> result = "через минуту"
+        diff in -45 * MINUTE until -75 * SECOND -> result =
+            "через ${TimeUnits.MINUTE.plural((abs(diff) / MINUTE).toInt())}"
+        diff in -75 * MINUTE until -45 * MINUTE -> result = "через час"
+        diff in -22 * HOUR until -75 * MINUTE -> result =
+            "через ${TimeUnits.HOUR.plural((abs(diff) / HOUR).toInt())}"
+        diff in -26 * HOUR until -22 * HOUR -> result = "через день"
+        diff in -360 * DAY until -26 * HOUR -> result =
+            "через ${TimeUnits.DAY.plural((abs(diff) / DAY).toInt())}"
+        diff < -360 * DAY -> result = "более чем через год"
     }
     return result
 }
