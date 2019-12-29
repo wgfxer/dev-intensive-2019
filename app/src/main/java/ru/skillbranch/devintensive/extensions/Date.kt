@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.extensions
 
+import android.util.Log
 import ru.skillbranch.devintensive.utils.Utils
 import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
