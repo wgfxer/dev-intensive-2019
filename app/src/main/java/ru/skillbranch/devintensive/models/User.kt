@@ -23,18 +23,74 @@ data class User(
     constructor(id: String) : this(id, "John", "Doe")
 
     init {
-        println("It's Alive!!!\n" +
-        "${if (lastName === "Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName!!!" }\n"   )
+        println(
+            "It's Alive!!!\n" +
+                    "${if (lastName === "Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName!!!"}\n"
+        )
     }
 
-    companion object Factory{
-        private var lastId : Int = -1
-        fun makeUser(fullName:String?) : User{
+    companion object Factory {
+        private var lastId: Int = -1
+        fun makeUser(fullName: String?): User {
             lastId++
 
             val (firstName, lastName) = Utils.parseFullName(fullName)
 
-            return User(id = "$lastId",firstName = firstName,lastName = lastName)
+            return User(id = "$lastId", firstName = firstName, lastName = lastName)
+        }
+    }
+
+    class Builder {
+        private var id: String = ""
+        var firstName: String? = null
+        var lastName: String? = null
+        var avatar: String? = null
+        var rating: Int = 0
+        var respect: Int = 0
+        var lastVisit: Date? = null
+        var isOnline: Boolean = false
+        fun id(value: String): Builder {
+            id = value
+            return this
+        }
+
+        fun firstName(value: String): Builder {
+            firstName = value
+            return this
+        }
+
+        fun lastName(value: String): Builder {
+            lastName = value
+            return this
+        }
+
+        fun avatar(value: String): Builder {
+            avatar = value
+            return this
+        }
+
+        fun rating(value: Int): Builder {
+            rating = value
+            return this
+        }
+
+        fun respect(value: Int): Builder {
+            respect = value
+            return this
+        }
+
+        fun lastVisit(value: Date): Builder {
+            lastVisit = value
+            return this
+        }
+
+        fun isOnline(value: Boolean): Builder {
+            isOnline = value
+            return this
+        }
+
+        fun build(): User {
+            return User(id, firstName, lastName, avatar, rating, respect, lastVisit, isOnline)
         }
     }
 }
