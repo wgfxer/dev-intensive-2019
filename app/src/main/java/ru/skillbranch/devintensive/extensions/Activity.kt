@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.extensions
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 
 fun Activity.hideKeyboard() {
@@ -13,11 +14,19 @@ fun Activity.hideKeyboard() {
     }
 }
 
-fun Activity.isKeyboardOpen() {
-    /*rootView.getWindowVisibleDisplayFrame(Rect())
-    this.currentFocus.getWindowVisibleDisplayFrame(Rect())*/
+fun Activity.isKeyboardOpen(): Boolean {
+    var r = Rect()
+    val view = this.currentFocus
+    view?.getWindowVisibleDisplayFrame(r)
+
+    val screenHeight: Int = view?.rootView?.height ?: 0
+
+    val keypadHeight: Int = screenHeight - r.bottom
+
+    return keypadHeight > screenHeight * 0.15
 }
 
+/*
 fun Activity.isKeyboardClosed() {
-
-}
+    rootView.getWindowVisibleDisplayFrame(Rect())
+}*/
