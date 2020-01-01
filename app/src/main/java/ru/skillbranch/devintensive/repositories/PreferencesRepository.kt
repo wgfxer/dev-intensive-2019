@@ -58,6 +58,6 @@ object PreferencesRepository {
             is Long -> putLong(key, value)
             else -> error("Only primitives types can be stored in Shared Preferences")
         }
-
+        apply()
     }
 }
