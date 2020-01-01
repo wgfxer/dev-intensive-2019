@@ -23,12 +23,12 @@ object PreferencesRepository {
 
     fun saveProfile(profile: Profile) {
         with(profile) {
-            putValue("FIRST_NAME" to firstName)
-            putValue("LAST_NAME" to lastName)
-            putValue("ABOUT" to about)
-            putValue("REPOSITORY" to repository)
-            putValue("RATING" to rating)
-            putValue("RESPECT" to respect)
+            putValue(FIRST_NAME to firstName)
+            putValue(LAST_NAME to lastName)
+            putValue(ABOUT to about)
+            putValue(REPOSITORY to repository)
+            putValue(RATING to rating)
+            putValue(RESPECT to respect)
         }
     }
 

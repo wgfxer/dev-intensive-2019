@@ -90,7 +90,7 @@ class ProfileActivity : AppCompatActivity() {
             v as EditText
             v.isFocusable = isEdit
             v.isFocusableInTouchMode = isEdit
-            v.isFocusableInTouchMode = isEdit
+            v.isEnabled = isEdit
             v.background.alpha = if (isEdit) 255 else 0
         }
 
