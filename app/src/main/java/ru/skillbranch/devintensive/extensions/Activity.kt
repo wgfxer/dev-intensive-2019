@@ -26,7 +26,7 @@ fun Activity.isKeyboardOpen(): Boolean {
     return keypadHeight > screenHeight * 0.15
 }
 
-/*
-fun Activity.isKeyboardClosed() {
-    rootView.getWindowVisibleDisplayFrame(Rect())
-}*/
+
+fun Activity.isKeyboardClosed(): Boolean {
+    return !isKeyboardOpen()
+}
