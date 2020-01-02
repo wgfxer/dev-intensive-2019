@@ -17,11 +17,11 @@ data class Chat(
         return 0
     }
 
-    private fun lastMessageDate(): Date? {
+    fun lastMessageDate(): Date? {
         return Date()
     }
 
-    private fun lastMessageShort(): Pair<String, String> {
+    fun lastMessageShort(): Pair<String, String> {
         return "Сообщений еще нет" to "@John_Doe"
     }
 
