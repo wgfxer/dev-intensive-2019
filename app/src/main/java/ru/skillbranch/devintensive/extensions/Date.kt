@@ -1,8 +1,6 @@
 package ru.skillbranch.devintensive.extensions
 
-import android.util.Log
 import ru.skillbranch.devintensive.utils.Utils
-import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -27,6 +25,19 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
     }
     this.time = time
     return this
+}
+
+
+fun Date.shortFormat(): String {
+    val pattern = if (this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
+    val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
+    return dateFormat.format(this)
+}
+
+fun Date.isSameDay(date: Date): Boolean {
+    val day1 = this.time / DAY
+    val day2 = date.time / DAY
+    return day1 == day2
 }
 
 fun Date.humanizeDiff(date: Date = Date()): String {
@@ -61,7 +72,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     return result
 }
 
-enum class TimeUnits{
+enum class TimeUnits {
     SECOND {
         override fun plural(value: Int): String {
             return Utils.getPlural(value, "секунду", "секунды", "секунд")
