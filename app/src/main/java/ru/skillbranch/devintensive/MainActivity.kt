@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
+import ru.skillbranch.devintensive.extensions.isKeyboardClosed
 import ru.skillbranch.devintensive.extensions.isKeyboardOpen
 import ru.skillbranch.devintensive.models.Bender
 
@@ -49,14 +50,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.iv_send) {
-            if (isKeyboardOpen()) {
-                Toast.makeText(this, "OPENED", Toast.LENGTH_LONG).show()
-            } else {
+            if (isKeyboardClosed()) {
                 Toast.makeText(this, "CLOSED", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "OPENED", Toast.LENGTH_LONG).show()
 
             }
             sendMessage()
         }
+
     }
 
     private fun sendMessage() {
@@ -65,7 +67,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         val (r, g, b) = color
         benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
         textTxt.text = phrase
-        hideKeyboard()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             sendMessage()
+            hideKeyboard()
             return true
         }
         return false
