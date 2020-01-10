@@ -39,6 +39,7 @@
                 android:layout_width="@dimen/avatar_round_size"
                 android:layout_height="@dimen/avatar_round_size"
                 android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
                 android:src="@drawable/avatar_default" />-->
 
             <ru.skillbranch.devintensive.ui.custom.CircleImageView
@@ -46,6 +47,7 @@
                 android:layout_width="@dimen/avatar_round_size"
                 android:layout_height="@dimen/avatar_round_size"
                 android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
                 android:src="@drawable/avatar_default" />
 
             <ImageButton
