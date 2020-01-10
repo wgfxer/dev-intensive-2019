@@ -56,4 +56,8 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:minHeight">72dp</item>
     </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
 </resources>

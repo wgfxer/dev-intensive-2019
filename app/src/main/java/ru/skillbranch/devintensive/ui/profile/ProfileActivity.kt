@@ -26,6 +26,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
@@ -48,7 +49,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateTheme(mode: Int) {
         delegate.setLocalNightMode(mode)
-
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -96,6 +96,7 @@ class ProfileActivity : AppCompatActivity() {
 
         ic_eye.visibility = if (isEdit) View.GONE else View.VISIBLE
         wr_about.isCounterEnabled = isEdit
+
 
         with(btn_edit) {
             val filter: ColorFilter? = if (isEdit) {
