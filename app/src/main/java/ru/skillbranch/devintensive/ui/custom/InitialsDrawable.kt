@@ -2,25 +2,33 @@ package ru.skillbranch.devintensive.ui.custom
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.util.Log
+import androidx.core.graphics.toRectF
 
 class InitialsDrawable(val initials: String, circleColor: Int) : Drawable() {
 
     val circlePaint: Paint = Paint()
     val initialsPaint: Paint = Paint()
-    val circleRect: RectF = RectF(0.0f, 0.0f, 220.0f, 220.0f)
 
     init {
         circlePaint.isAntiAlias = true
         initialsPaint.isAntiAlias = true
         initialsPaint.color = Color.WHITE
         circlePaint.color = circleColor
-        initialsPaint.textSize = 46f
+        initialsPaint.textAlign = Paint.Align.CENTER
     }
 
 
     override fun draw(canvas: Canvas) {
-        canvas.drawOval(circleRect, circlePaint)
-        canvas.drawText(initials, 110f, 110f, initialsPaint)
+        canvas.drawOval(bounds.toRectF(), circlePaint)
+        val offsetY = (initialsPaint.descent() + initialsPaint.ascent()) / 2
+        initialsPaint.textSize = bounds.height() * 0.33f
+        canvas.drawText(
+            initials,
+            bounds.exactCenterX(),
+            bounds.exactCenterY() - offsetY,
+            initialsPaint
+        )
     }
 
     override fun setAlpha(alpha: Int) {
