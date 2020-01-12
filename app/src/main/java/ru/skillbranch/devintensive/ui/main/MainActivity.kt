@@ -1,9 +1,7 @@
 package ru.skillbranch.devintensive.ui.main
 
-import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 "Вы точно хотите добавить ${it.title} в архив?",
                 Snackbar.LENGTH_LONG
             )
-                .setAction("Отмена") { viewModel.removeFromArchive(chatItem.id) }
+                .setAction("Отмена") { viewModel.restoreFromArchive(chatItem.id) }
                 .show()
         }
         val touchHelper = ItemTouchHelper(touchCallback)
