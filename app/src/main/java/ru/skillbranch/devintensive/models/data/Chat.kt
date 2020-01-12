@@ -5,7 +5,6 @@ import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
-import java.lang.IllegalStateException
 import java.util.*
 
 data class Chat(
@@ -22,10 +21,10 @@ data class Chat(
 
     fun lastMessageDate(): Date? {
         val sortedList = messages.sortedByDescending { it.date }
-        return if (sortedList.isNullOrEmpty()) {
-            null
+        if (sortedList.isNullOrEmpty()) {
+            return null
         } else {
-            sortedList[0].date
+            return sortedList[0].date
         }
     }
 

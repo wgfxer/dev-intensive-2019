@@ -1,7 +1,9 @@
 package ru.skillbranch.devintensive.ui.main
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -39,12 +41,15 @@ class MainActivity : AppCompatActivity() {
         }
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {
+            val chatItem = it
             viewModel.addToArchive(it.id)
             Snackbar.make(
                 rv_chat_list,
                 "Вы точно хотите добавить ${it.title} в архив?",
                 Snackbar.LENGTH_LONG
-            ).show()
+            )
+                .setAction("Отмена") { viewModel.removeFromArchive(chatItem.id) }
+                .show()
         }
         val touchHelper = ItemTouchHelper(touchCallback)
         touchHelper.attachToRecyclerView(rv_chat_list)
