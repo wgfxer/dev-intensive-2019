@@ -2,7 +2,10 @@ package ru.skillbranch.devintensive.models.data
 
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.ImageMessage
+import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
+import java.lang.IllegalStateException
 import java.util.*
 
 data class Chat(
@@ -14,18 +17,40 @@ data class Chat(
 ) {
 
     fun unreadableMessageCount(): Int {
-        return 0
+        return messages.filter { !it.isReaded }.size
     }
 
     fun lastMessageDate(): Date? {
-        return Date()
+        val sortedList = messages.sortedByDescending { it.date }
+        return if (sortedList.isNullOrEmpty()) {
+            null
+        } else {
+            sortedList[0].date
+        }
     }
 
     fun lastMessageShort(): Pair<String, String> {
-        return "Сообщений еще нет" to "@John_Doe"
+        val sortedList = messages.sortedByDescending { it.date }
+        if (sortedList.isNullOrEmpty()) {
+            return "null" to "null"
+        }
+        val lastMessage: BaseMessage = sortedList[0]
+        return when (lastMessage) {
+            is TextMessage -> {
+                val body: String = lastMessage.text ?: "Сообщений еще нет"
+                val user: String = lastMessage.from.firstName ?: "No name"
+                body to user
+            }
+            is ImageMessage -> {
+                val user: String = lastMessage.from.firstName ?: "No name"
+                val body = "$user - отправил фото"
+                body to user
+            }
+            else -> throw IllegalStateException("not yet implemented")
+        }
     }
 
-    private fun isSingle(): Boolean = members.size == 1
+    fun isSingle(): Boolean = members.size == 1
 
     fun toChatItem(): ChatItem {
         return if (isSingle()) {
